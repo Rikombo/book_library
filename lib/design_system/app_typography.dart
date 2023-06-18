@@ -25,4 +25,10 @@ class AppTypography {
     height: 1.2,
     fontFamily: 'KohSantepheap',
   );
+  static const caption1SemiBold = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.bold,
+    height: 1.2,
+    fontFamily: 'KohSantepheap',
+  );
 }

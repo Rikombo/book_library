@@ -7,7 +7,10 @@ import 'design_system/app_typography.dart';
 class BookInfoPage extends StatelessWidget {
   final BookInfo book;
 
-  const BookInfoPage({super.key, required this.book});
+  const BookInfoPage({
+    super.key,
+    required this.book,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +56,7 @@ class BookInfoPage extends StatelessWidget {
                 style: AppTypography.headline1Bold
                     .copyWith(color: AppColors.primaryOnLight),
               ),
-            )
+            ),
           ],
         ),
       ),

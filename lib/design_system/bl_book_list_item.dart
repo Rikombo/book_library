@@ -1,4 +1,5 @@
 import 'package:book_library/book_info.dart';
+import 'package:book_library/book_rating.dart';
 import 'package:book_library/design_system/app_typography.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -38,9 +39,10 @@ class BLBookListItem extends StatelessWidget {
                 height: 4,
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 16),
+                padding: const EdgeInsets.only(left: 16, bottom: 17.33),
                 child: Text(book.author),
               ),
+              const BookRating()
             ],
           ),
         ],

@@ -3,6 +3,9 @@ class BookInfo {
   final String author;
   final String imageUrl;
 
-  const BookInfo(
-      {required this.title, required this.author, required this.imageUrl});
+  const BookInfo({
+    required this.title,
+    required this.author,
+    required this.imageUrl,
+  });
 }
