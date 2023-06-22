@@ -1,13 +1,52 @@
+import 'dart:async';
 import 'package:book_library/book_info.dart';
 import 'package:book_library/book_info_page.dart';
-import 'package:book_library/books.dart';
+import 'package:book_library/books_repository.dart';
 import 'package:book_library/design_system/app_typography.dart';
 import 'package:book_library/design_system/bl_book_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:book_library/design_system/app_colors.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class BookListPage extends StatelessWidget {
+class BookListPage extends StatefulWidget {
   const BookListPage({super.key});
+
+  @override
+  State<BookListPage> createState() => _BookListPageState();
+}
+
+class _BookListPageState extends State<BookListPage> {
+  late final BooksRepository booksRepository;
+  Future<List<BookInfo>>? booksFuture;
+  final TextEditingController _searchController = TextEditingController();
+  Timer? _debouncer;
+
+  void _debounceSearch() {
+    if (_debouncer != null) {
+      _debouncer?.cancel();
+    }
+    _debouncer = Timer(const Duration(seconds: 3), () {
+      final query = _searchController.text;
+      setState(() {
+        booksFuture = booksRepository.searchBooks(query);
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    booksRepository = RepositoryProvider.of<BooksRepository>(context);
+    booksFuture = booksRepository.getBooks();
+    _searchController.addListener(_debounceSearch);
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    _debouncer?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +60,7 @@ class BookListPage extends StatelessWidget {
             children: [
               const SizedBox(height: 24),
               TextFormField(
+                controller: _searchController,
                 decoration: InputDecoration(
                   hintText: 'Search for books...',
                   hintStyle: const TextStyle(
@@ -59,19 +99,36 @@ class BookListPage extends StatelessWidget {
                 height: 20,
               ),
               Expanded(
-                child: ListView.separated(
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () => _showBookDetail(context, bookInfo[index]),
-                      child: BLBookListItem(
-                        book: bookInfo[index],
-                      ),
-                    );
-                  },
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(height: 16),
-                  itemCount: bookInfo.length,
-                ),
+                child: FutureBuilder<List<BookInfo>>(
+                    future: booksFuture,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else if (snapshot.hasError) {
+                        return Center(
+                          child: Text('An error occurred: ${snapshot.error}'),
+                        );
+                      } else {
+                        final books = snapshot.data ?? [];
+                        return ListView.separated(
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () =>
+                                  _showBookDetail(context, books[index]),
+                              child: BLBookListItem(
+                                book: books[index],
+                              ),
+                            );
+                          },
+                          separatorBuilder: (context, index) => const SizedBox(
+                            height: 16,
+                          ),
+                          itemCount: books.length,
+                        );
+                      }
+                    }),
               ),
             ],
           ),
@@ -86,5 +143,3 @@ class BookListPage extends StatelessWidget {
     ));
   }
 }
-
-// TODO use Spacer to make space between author and rating
