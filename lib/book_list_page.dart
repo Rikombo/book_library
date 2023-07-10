@@ -73,17 +73,15 @@ class _BookListPageState extends State<BookListPage> {
                     Icons.search,
                     color: AppColors.primaryOnLight,
                   ),
-                  suffixIcon: const Icon(
-                    Icons.mic,
-                    color: AppColors.primaryOnLight,
-                  ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(50),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(50),
                     borderSide: const BorderSide(
-                        color: AppColors.onBackGroundLight, width: 0.5),
+                      color: AppColors.onBackGroundLight,
+                      width: 0.5,
+                    ),
                   ),
                 ),
               ),

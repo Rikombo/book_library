@@ -1,11 +1,11 @@
 import 'package:book_library/book_info.dart';
 import 'package:book_library/design_system/app_colors.dart';
 import 'package:flutter/material.dart';
-
 import 'design_system/app_typography.dart';
 
 class BookRating extends StatelessWidget {
   const BookRating({super.key, required this.bookInfo});
+
   final BookInfo bookInfo;
 
   @override
