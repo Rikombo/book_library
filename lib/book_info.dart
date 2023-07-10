@@ -1,4 +1,6 @@
-class BookInfo {
+import 'package:equatable/equatable.dart';
+
+class BookInfo extends Equatable {
   final String title;
   final String author;
   final String imageUrl;
@@ -20,4 +22,21 @@ class BookInfo {
     required this.pages,
     required this.genre,
   });
+
+  @override
+  List<Object?> get props =>
+      [
+        title,
+        author,
+        imageUrl,
+        description,
+        rating,
+        reviews,
+        createdAt,
+        pages,
+        genre,
+      ];
 }
+
+
+
