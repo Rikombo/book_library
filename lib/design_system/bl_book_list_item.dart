@@ -1,9 +1,13 @@
+import 'package:book_library/book_info.dart';
+import 'package:book_library/book_rating.dart';
 import 'package:book_library/design_system/app_typography.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class BLBookListItem extends StatelessWidget {
-  const BLBookListItem({super.key});
+  const BLBookListItem({super.key, required this.book});
+
+  final BookInfo book;
 
   @override
   Widget build(BuildContext context) {
@@ -14,30 +18,33 @@ class BLBookListItem extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
             child: Image.network(
-              'https://upload.wikimedia.org/wikipedia/commons/7/7a/The_Great_Gatsby_Cover_1925_Retouched.jpg',
+              book.imageUrl,
               height: 84,
               width: 77,
               fit: BoxFit.cover,
             ),
           ),
-          const Column(
+          Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsets.only(left: 16, top: 16),
+                padding: const EdgeInsets.only(left: 16, top: 8.5),
                 child: Text(
-                  'Marina',
+                  book.title,
                   style: AppTypography.subtitle1Bold,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 4,
               ),
               Padding(
-                padding: EdgeInsets.only(left: 16),
-                child: Text('Carlos Ruiz Zafon'),
+                padding: const EdgeInsets.only(left: 16, bottom: 17.33),
+                child: Text(book.author),
               ),
+              BookRating(
+                bookInfo: book,
+              )
             ],
           ),
         ],

@@ -19,9 +19,15 @@ class AppTypography {
     height: 1.2,
     fontFamily: 'KohSantepheap',
   );
-  static const subtitle1Regular = TextStyle(
+  static const subtitle2Regular = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.normal,
+    height: 1.2,
+    fontFamily: 'KohSantepheap',
+  );
+  static const caption1SemiBold = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.bold,
     height: 1.2,
     fontFamily: 'KohSantepheap',
   );

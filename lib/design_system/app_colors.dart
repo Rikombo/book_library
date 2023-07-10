@@ -10,8 +10,16 @@ class AppColors {
   // Background color
   static const light = Color(0xFFE6DAC3);
 
-// Typography color
+  // Border color
+  static const onBackGroundLight = Color(0xFF6D6D6D);
+
+  // State color
+  static const primaryButtonPressed = Color(0xFF6E5509);
+  static const primaryButtonDisabled = Color(0xFF423305);
+
+// Typography and Icon color
   static const primaryOnLight = Color(0xFF2D2D2D);
   static const primaryOnDark = Color(0xFFFFFFFF);
   static const disabledOnDark = Color(0xFF9A9A9A);
+  static const disablesOnLight = Color(0xFFD9D9D9);
 }
