@@ -42,7 +42,9 @@ class BLBookListItem extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 16, bottom: 17.33),
                 child: Text(book.author),
               ),
-              const BookRating()
+              BookRating(
+                bookInfo: book,
+              )
             ],
           ),
         ],
